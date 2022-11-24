@@ -1,5 +1,11 @@
-const { users } = require('../mock')
+const { findByEmailAndPassword } = require('../repositories/user.repository');
 
-exports.getUserByEmailAndPassword = (email, password) => {
-    return users.find(u => u.email === email && u.password === password);
-}
+exports.findByEmailAndPassword = async (email, password) => {
+    const user = await findByEmailAndPassword(email, password)
+
+    if (user.length > 0) {
+        return user[0];
+    }
+
+    return null;
+};

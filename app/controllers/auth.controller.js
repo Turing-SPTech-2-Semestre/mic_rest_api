@@ -4,22 +4,23 @@ const { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } = require('../environments/e
 
 let refreshTokens = [];
 
-exports.login = (req, res) => {
+exports.login = async (req, res) => {
     // Authenticate User
 
     const { email, password } = req.body;
     if (email && password) {
-        const user = authService.getUserByEmailAndPassword(email, password);
+        const user = await authService.findByEmailAndPassword(email, password);
+
         if (user) {
             const access_token = generateAccessToken(user);
             const refresh_token = generateRefreshToken(user);
             refreshTokens.push(refresh_token);
             res.status(200).send({ userId: user.userId, displayName : user.displayName, email : user.email, access_token: access_token, refresh_token: refresh_token });
         } else {
-            res.status(404).send('User not found!');
+            res.status(404).send('Usuário não encontrado!');
         }
     } else {
-        res.status(400).send('Email and Password are required!');
+        res.status(400).send('Email e senha são necessários para o login!');
     }
 }
 

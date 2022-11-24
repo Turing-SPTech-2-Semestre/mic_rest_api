@@ -10,7 +10,9 @@ app.use(cors());
 const routes = require('./app/routes');
 app.use('/api',routes);
 
+const port = 8080;
+
 //start http server
-app.listen(8080);
+app.listen(port, ()=>{console.log("Rodando na porta ", port)});
 
 module.exports = { app };
