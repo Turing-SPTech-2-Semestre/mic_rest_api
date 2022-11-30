@@ -1,13 +1,14 @@
 const { companyService, userService } = require('../services/index');
 
 exports.create = async (req, res) => {
+    
     try {
-        const { companyId, name, email, password} = req.body;
+        let { companyCode, name, email, password} = req.body;
         
-        if (companyId && name && email && password) {
-            const companyExists = await companyService.exists(companyId); 
-            
-            if (!companyExists) {
+        if (companyCode && name && email && password) {
+            const companyId = await companyService.getIdByCompanyCode(companyCode); 
+
+            if (!companyId) {
                 return res.status(404).send("Empresa não encontrada")
             }
             
@@ -16,8 +17,13 @@ exports.create = async (req, res) => {
             if (userExists) {
                 return res.status(403).send("Esse email já está cadastrado");
             }
-            
-            await userService.create(req.body);
+         
+            await userService.create({
+                companyId,
+                name,
+                email,
+                password
+            });
             
             res.status(201).send("Usuário cadastrado com sucesso");
         }

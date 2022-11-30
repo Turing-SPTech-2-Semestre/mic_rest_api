@@ -15,7 +15,7 @@ exports.login = async (req, res) => {
             const access_token = generateAccessToken(user);
             const refresh_token = generateRefreshToken(user);
             refreshTokens.push(refresh_token);
-            res.status(200).send({ userId: user.userId, displayName : user.displayName, email : user.email, access_token: access_token, refresh_token: refresh_token });
+            res.status(200).send({ userId: user.id, companyFk: user.fk_company, displayName : user.displayName, email : user.email, access_token: access_token, refresh_token: refresh_token });
         } else {
             res.status(404).send('Usuário não encontrado!');
         }
