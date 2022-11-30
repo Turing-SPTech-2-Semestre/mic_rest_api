@@ -1,9 +1,13 @@
 const { findBySerialNumber, create, findById, findByCompany } = require('../repositories/machine.repository');
 
 exports.exists = async (serialNumber) => {
-    const machines = await findBySerialNumber(serialNumber);
+    const machine = await findBySerialNumber(serialNumber);
     
-    return machines.length > 0;
+    if (machine.length > 0) {
+        return machine[0]
+    }
+    
+    return null
 };
 
 exports.create = async (user) => {

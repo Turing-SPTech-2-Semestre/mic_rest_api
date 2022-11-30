@@ -1,4 +1,4 @@
-const { companyService, machineService } = require('../services/index');
+const { companyService, machineService, metricMachineService } = require('../services/index');
 
 exports.create = async (req, res) => {
     try {
@@ -17,13 +17,15 @@ exports.create = async (req, res) => {
                 return res.status(404).send("Empresa não encontrada")
             }
             
-            const machineAlreadyExists = await machineService.exists(serialNumber);
+            const machine = await machineService.exists(serialNumber);
 
-            if (machineAlreadyExists) {
-                return res.status(403).send("Essa máquina já foi cadastrada");
+            if (machine) {
+                return res.status(403).send(`${machine.id}`);
             }
 
             await machineService.create(req.body);
+            await metricMachineService.create(companyId);
+
             res.status(201).send('Máquina cadastrada com sucesso');
         }
         else {
