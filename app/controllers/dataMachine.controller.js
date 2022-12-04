@@ -1,4 +1,4 @@
-const { dataMachineService, machineService } = require('../services/index');
+const { dataMachineService, machineService, alertMachineService } = require('../services/index');
 
 const { insert } = require('../repositories/dataMachine.repository')
 
@@ -19,7 +19,8 @@ exports.insert = async (req, res) => {
             if (!maquina) {
                 return res.status(404).send("Essa máquina ainda não foi cadastrada")
             }
-            
+           
+            // await alertMachineService.validate([ramUsage, diskUsage, cpuFreq, cpuPercent]);
             await dataMachineService.insert(req.body);
             res.status(201).send("Informação inserida com sucesso.");
         }

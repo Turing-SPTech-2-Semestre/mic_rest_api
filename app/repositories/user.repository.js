@@ -21,7 +21,7 @@ exports.create = (user) => {
     return exec(`
         INSERT INTO mic_user
         VALUES (
-            ${user.companyId.id},
+            ${user.companyId},
             '${user.name}',
             '${user.email}',
             '${user.password}'

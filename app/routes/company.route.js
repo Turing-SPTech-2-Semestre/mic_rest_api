@@ -1,6 +1,10 @@
 const express = require('express');
 const { generateCompanyCode } = require('../helper/companyCode.helper');
 const router = express.Router();
+const controller = require('../controllers/index');
+
+router.route("/")
+    .post(controller.companyController.create);
 
 router.route('/code')
     .get((req, res) => {
