@@ -1,4 +1,5 @@
 const { exec } = require('../database/sqlConfig');
+const { generatePasswordHash } = require('../helper/passwordHash.helper')
 
 exports.findByEmail = (email) => {
     return exec(`
@@ -8,23 +9,22 @@ exports.findByEmail = (email) => {
     `);
 };
 
-exports.findByEmailAndPassword = (email, password) => {
+exports.findByEmail = (email) => {
     return exec(`
         SELECT *
         FROM mic_user
         WHERE email='${email}'
-        AND senha='${password}'; 
     `);  
 };
 
-exports.create = (user) => {
+exports.create = async (user) => {
     return exec(`
         INSERT INTO mic_user
         VALUES (
             ${user.companyId},
             '${user.name}',
             '${user.email}',
-            '${user.password}'
+            '${await generatePasswordHash(user.password)}'
         );
     `);
 };

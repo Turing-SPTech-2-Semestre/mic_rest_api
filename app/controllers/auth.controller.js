@@ -9,7 +9,7 @@ exports.login = async (req, res) => {
 
     const { email, password } = req.body;
     if (email && password) {
-        const user = await authService.findByEmailAndPassword(email, password);
+        const user = await authService.validateUser(email, password); 
 
         if (user) {
             const access_token = generateAccessToken(user);
@@ -17,7 +17,7 @@ exports.login = async (req, res) => {
             refreshTokens.push(refresh_token);
             res.status(200).send({ userId: user.id, companyFk: user.fk_company, displayName : user.displayName, email : user.email, access_token: access_token, refresh_token: refresh_token });
         } else {
-            res.status(404).send('Usuário não encontrado!');
+            res.status(401).send('Usuário não encontrado!');
         }
     } else {
         res.status(400).send('Email e senha são necessários para o login!');
@@ -54,7 +54,7 @@ exports.logout = (req, res) => {
 const generateAccessToken = (user) => {
     // const time = 1000 * 60 * 60;
     // const s = time.toString();
-    return jwt.sign(user, ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
+    return jwt.sign(user, ACCESS_TOKEN_SECRET, { expiresIn: '10h' });
 }
 
 const generateRefreshToken = (user) => {

@@ -10,10 +10,9 @@ exports.getIdByCompanyCode = async (companyCode) => {
     const id = await getIdByCompanyCode(companyCode);
 
     if (id.length > 0)
-        return id[0];
+        return id[0].id;
 }
 
 exports.create = async (company) => {
     await create(company);
-    return company.
 }

@@ -1,14 +1,15 @@
 const { companyService } = require('../services/index');
+const { generateCompanyCode } = require('../helper/companyCode.helper');
 
 exports.create = async (req, res) => {
     try {
-        const { companyName, email, cnpj, cep, estado, numero, senha } = req.body;
+        const { companyName, cnpj, cep, estado, numero} = req.body;
     
-        if (companyName && email && cnpj && cep && estado && numero && senha) {
-           console.log("Abobrinha") 
+        if (companyName && cnpj && cep && estado && numero) {
+            req.body.companyCode = generateCompanyCode();
             await companyService.create(req.body); 
-            
-            res.status(201).send({message: "Empresa cadastrada com sucesso"}, codigoEmpresa: "");
+
+            res.status(201).send(`Empresa cadastrada com sucesso ${req.body.companyCode}`);
         }
         else {
             res.status(400).send("Faltam dados para inserir no banco");    

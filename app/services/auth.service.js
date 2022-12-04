@@ -1,10 +1,13 @@
-const { findByEmailAndPassword } = require('../repositories/user.repository');
+const { findByEmail } = require('../repositories/user.repository');
+const { compare } = require('../helper/passwordHash.helper')
 
-exports.findByEmailAndPassword = async (email, password) => {
-    const user = await findByEmailAndPassword(email, password)
+exports.validateUser = async (email, password) => {
+    const user = await findByEmail(email)
 
     if (user.length > 0) {
-        return user[0];
+       if (compare(password, user[0].senha))  {
+            return user[0];
+       }
     }
 
     return null;

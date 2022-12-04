@@ -22,14 +22,12 @@ exports.create = (company) => {
         INSERT INTO mic_company 
         VALUES (
             '${company.companyName}',
-            '${generateCompanyCode()}',
-            '${company.email}',
+            '${company.companyCode}',
             '${company.cnpj}',
             '${company.cep}',
-            '${company.estado}',
             '${company.numero}',
-            '${company.senha}'
-        )
+            '${company.estado}'
+        );
     `)
 }
 
