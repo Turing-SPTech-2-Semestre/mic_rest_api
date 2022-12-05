@@ -23,3 +23,12 @@ exports.findLast = (machineId, numberOfRows) => {
         ORDER BY id DESC;
     `)
 }
+
+exports.getUserAlertCount = (machineId) => {
+    return exec(`
+        SELECT
+            (SELECT count(id) FROM [dbo].[mic_alert_machine]) AS alert_count,
+            (SELECT count(id) FROM [dbo].[mic_user]) AS user_count 
+        
+	`)
+}

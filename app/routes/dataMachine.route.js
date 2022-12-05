@@ -5,7 +5,10 @@ const router = express.Router({ mergeParams: true });
 router.route('/')
     .post(controller.dataMachineController.insert);
 
-router.route('/:machineId/:numberOfRows')
+router.route('/metrics/:machineId/:numberOfRows')
     .get(controller.dataMachineController.findLast);
-    
+
+router.route('/user-alert-count/:companyId')
+    .get(controller.dataMachineController.getUserAlertCount)
+
 module.exports = router;

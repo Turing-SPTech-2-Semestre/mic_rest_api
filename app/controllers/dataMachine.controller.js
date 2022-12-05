@@ -1,4 +1,4 @@
-const { dataMachineService, machineService, alertMachineService } = require('../services/index');
+const { dataMachineService, machineService, alertMachineService, companyService } = require('../services/index');
 
 const { insert } = require('../repositories/dataMachine.repository')
 
@@ -52,4 +52,23 @@ exports.findLast = async (req, res) => {
         console.log(err);
         res.status(400).send("Houve um erro ao buscar as medidas");
     }
+}
+
+exports.getUserAlertCount = async (req, res) => {
+    try {
+        const { companyId } = req.params;
+
+        const resultado = await dataMachineService.getUserAlertCount(companyId);
+
+        if (resultado) {
+            res.status(200).json(resultado);
+        }
+        else {
+            res.status(404).send("Não foi possível achar a empresa");
+        }
+    }
+    catch (err) {
+        console.log(err);
+        res.status(400).send("Houve um erro ao buscar as medidas");
+    } 
 }

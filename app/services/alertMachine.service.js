@@ -2,18 +2,15 @@ const { create } = require('./user.service');
 
 exports.validate = async (medidas) => {
 
+    const comp = ["", "ram", "dsk", "cpu"]
+
     let component = "";
     let type = ""
+    
 
     for (let i = 1; i < medidas.length; i++) {
-        if(i == 1)
-            component = "Ram";
-            
-        else if (i == 2)
-            component = "Disco";
 
-        else if (i == 3 || i == 4)
-            component = "Cpu";
+        component = comp[i];
 
         if (medidas[i] >= 65 && medidas[i] <= 80)
             type="Emergencial";
@@ -27,10 +24,7 @@ exports.validate = async (medidas) => {
             "typeAlert": type
         }
 
-        if (type != "")    
-            console.log("OIeeee")
-            console.log(medidas[i])
-            await create(alert);
+        await create(alert);
         type=""
         component=""
     }

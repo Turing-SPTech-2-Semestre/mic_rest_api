@@ -51,6 +51,10 @@ exports.logout = (req, res) => {
     res.status(204).send();
 }
 
+exports.isLogged = (req, res) => {
+    res.status(200).send();
+}
+
 const generateAccessToken = (user) => {
     // const time = 1000 * 60 * 60;
     // const s = time.toString();
