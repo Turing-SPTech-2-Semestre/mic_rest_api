@@ -1,4 +1,4 @@
-const {getUserAlertCount } = require('../repositories/dashHilary.repositorY'); 
+const {getUserAlertCount } = require('../repositories/dashHilary.repository'); 
 
 exports.getUserAlertCount = async (machine) => {
     const resultado = await getUserAlertCount();
