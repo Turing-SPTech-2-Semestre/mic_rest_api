@@ -7,7 +7,7 @@ exports.validate = async (medidas) => {
     let component;
     let type;
 
-    for (let i = 1; i < medidas.length; i++) {
+    for (let i = 2; i < medidas.length; i++) {
         component = comp[i];
         type="";
 

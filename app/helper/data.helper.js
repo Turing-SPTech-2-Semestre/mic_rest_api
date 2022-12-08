@@ -5,7 +5,7 @@ exports.getDate = () => {
     let mes = (data.getMonth()+1).toString() //+1 pois no getMonth Janeiro começa com zero.
     let mesF = (mes.length == 1) ? '0'+mes : mes
     let anoF = data.getFullYear();
-    return diaF+"/"+mesF+"/"+anoF;
+    return anoF+"-"+mesF+"-"+diaF;
  }
 
 exports.getTime = () => {
