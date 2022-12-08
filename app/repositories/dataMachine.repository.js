@@ -9,7 +9,6 @@ exports.insert = (dataMachine) => {
             '${getDate() + " " +getTime()}',
             ${dataMachine.ramUsage},
             ${dataMachine.diskUsage},
-            ${dataMachine.cpuFreq},
             ${dataMachine.cpuPercent}
         );`
     )

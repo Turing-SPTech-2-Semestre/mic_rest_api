@@ -12,7 +12,14 @@ exports.create = async (req, res) => {
         } = req.body
         if (companyId && serialNumber && ramCapacity && diskCapacity && cpuCapacity && cpuLogicalPorts) {
             const companyExists = await companyService.exists(companyId); 
-            
+           
+            console.log(companyId)
+            console.log(serialNumber);
+            console.log(ramCapacity);
+            console.log(diskCapacity);
+            console.log(cpuCapacity);
+            console.log(cpuLogicalPorts);
+
             if (!companyExists) {
                 return res.status(404).send("Empresa não encontrada")
             }
