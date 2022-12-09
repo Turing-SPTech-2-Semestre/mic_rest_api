@@ -13,7 +13,6 @@ const authorize = require('../middleware/authorize/authorize');
 
 const router = express.Router();
 
-
 router.get('/',controller.helloController.hello);
 
 router.use('/auth', authRoute);
