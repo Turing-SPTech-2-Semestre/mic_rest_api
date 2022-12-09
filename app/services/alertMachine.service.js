@@ -1,4 +1,4 @@
-const { insert, findLastSevenByCompanyOrderByMachine } = require('../repositories/alertMachine.repository');
+const { insert, findLastSevenByCompanyOrderByMachine, findAlertByCompanyId } = require('../repositories/alertMachine.repository');
 
 exports.validate = async (medidas) => {
     const comp = ["", "ram", "dsk", "cpu"];
@@ -32,6 +32,16 @@ exports.validate = async (medidas) => {
 
 exports.findLastSevenByCompanyOrderByMachine = async (machineId) => {
     const resultado = await findLastSevenByCompanyOrderByMachine(machineId);
+
+    if (resultado.length > 0) {
+        return resultado;
+    }
+
+    return [];
+}
+
+exports.findAlertByCompanyId = async (companyId, lastDays) => {
+    const resultado = await findAlertByCompanyId(companyId, lastDays);
 
     if (resultado.length > 0) {
         return resultado;

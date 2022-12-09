@@ -6,7 +6,7 @@ const userRoute = require('./user.route')
 const machineRoute = require('./machine.route');
 const dataMachineRoute = require('./dataMachine.route');
 const companyRoute = require('./company.route');
-const dashHilaryRoute = require('./dashHilary.route');
+const dashHilaryRoute = require('./alert.route');
 
 const controller = require('../controllers');
 const authorize = require('../middleware/authorize/authorize');
@@ -25,7 +25,7 @@ router.use('/machine', authorize.authorize, machineRoute);
 
 router.use('/dataMachine', dataMachineRoute);
 
-router.use('/dashHilary', authorize.authorize, dashHilaryRoute)
+router.use('/alerts', authorize.authorize, dashHilaryRoute)
 
 router.use('/company', companyRoute);
 

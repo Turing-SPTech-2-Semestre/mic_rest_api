@@ -18,6 +18,16 @@ exports.getDateSevenDaysAgo = () => {
     return anoF+"-"+mesF+"-"+diaF;       
 }
 
+exports.getLastDaysAgo = (days) => {
+    let data = new Date(Date.now() - days * 24 * 60 * 60 * 1000)
+    let dia= data.getDate().toString()
+    let diaF = (dia.length == 1) ? '0'+dia : dia
+    let mes = (data.getMonth()+1).toString() 
+    let mesF = (mes.length == 1) ? '0'+mes : mes
+    let anoF = data.getFullYear();
+    return anoF+"-"+mesF+"-"+diaF;       
+}
+
 exports.getTime = () => {
     let now = new Date(); 
     let year = now.getFullYear();
