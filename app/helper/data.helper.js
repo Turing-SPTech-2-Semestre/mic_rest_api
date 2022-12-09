@@ -2,11 +2,21 @@ exports.getDate = () => {
     let data = new Date()
     let dia= data.getDate().toString()
     let diaF = (dia.length == 1) ? '0'+dia : dia
-    let mes = (data.getMonth()+1).toString() //+1 pois no getMonth Janeiro começa com zero.
+    let mes = (data.getMonth()+1).toString() 
     let mesF = (mes.length == 1) ? '0'+mes : mes
     let anoF = data.getFullYear();
     return anoF+"-"+mesF+"-"+diaF;
- }
+}
+
+exports.getDateSevenDaysAgo = () => {
+    let data = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
+    let dia= data.getDate().toString()
+    let diaF = (dia.length == 1) ? '0'+dia : dia
+    let mes = (data.getMonth()+1).toString() 
+    let mesF = (mes.length == 1) ? '0'+mes : mes
+    let anoF = data.getFullYear();
+    return anoF+"-"+mesF+"-"+diaF;       
+}
 
 exports.getTime = () => {
     let now = new Date(); 

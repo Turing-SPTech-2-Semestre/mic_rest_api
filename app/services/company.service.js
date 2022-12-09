@@ -1,4 +1,4 @@
-const { countByCompanyCode, getIdByCompanyCode, create } = require('../repositories/company.repository');
+const { countByCompanyCode, getIdByCompanyCode, create, findByName } = require('../repositories/company.repository');
 
 exports.exists = async (id) => {
     const numberOfCompanies = await countByCompanyCode(id);
@@ -15,4 +15,14 @@ exports.getIdByCompanyCode = async (companyCode) => {
 
 exports.create = async (company) => {
     await create(company);
+}
+
+exports.findByName = async (companyName) => {
+    const resultado = await findByName(companyName);
+
+    if(resultado.length > 0) {
+        return resultado[0];
+    }
+
+    return null; 
 }

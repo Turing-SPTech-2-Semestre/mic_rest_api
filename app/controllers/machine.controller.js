@@ -31,7 +31,7 @@ exports.create = async (req, res) => {
             }
 
             await machineService.create(req.body);
-            await metricMachineService.create(companyId);
+            // await metricMachineService.create(companyId);
 
             res.status(201).send('Máquina cadastrada com sucesso');
         }

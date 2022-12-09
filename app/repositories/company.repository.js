@@ -38,3 +38,11 @@ exports.getIdByCompanyCode = (companyCode) => {
         WHERE company_code = '${companyCode}';
     `)
 }
+
+exports.findByName = (machineName) => {
+    return exec(`
+        SELECT id
+        FROM mic_company
+        WHERE company_name = '${machineName}';
+    `)
+}

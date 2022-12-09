@@ -1,4 +1,4 @@
-const { insert } = require('../repositories/alertMachine.repository');
+const { insert, findLastSevenByCompanyOrderByMachine } = require('../repositories/alertMachine.repository');
 
 exports.validate = async (medidas) => {
     const comp = ["", "ram", "dsk", "cpu"];
@@ -26,6 +26,16 @@ exports.validate = async (medidas) => {
         if (type == "Emergencial" || type == "Crítico")
             alertas.push(alert);
     }
-
-    await insert(alertas);
+    if (alertas.length > 0)
+        await insert(alertas);
 };
+
+exports.findLastSevenByCompanyOrderByMachine = async (machineId) => {
+    const resultado = await findLastSevenByCompanyOrderByMachine(machineId);
+
+    if (resultado.length > 0) {
+        return resultado;
+    }
+
+    return [];
+}

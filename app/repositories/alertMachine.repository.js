@@ -1,4 +1,4 @@
-const { getDate, getTime } = require('../helper/data.helper');
+const { getDate, getTime, getDateSevenDaysAgo } = require('../helper/data.helper');
 const { exec } = require('../database/sqlConfig');
 
 exports.insert = (alertas) => {
@@ -13,5 +13,18 @@ exports.insert = (alertas) => {
 
     instrucao = instrucao.substring(0, instrucao.length-1);
 
+
     return exec(instrucao);
+}
+
+exports.findLastSevenByCompanyOrderByMachine = (companyId) => {
+    return exec(`
+        SELECT count(mic_alert_machine.id) as qtd_alerta, fk_machine
+		FROM [dbo].[mic_alert_machine]
+			JOIN mic_machine
+				ON mic_machine.id = fk_machine
+				AND fk_company = ${companyId} 
+				AND date_insert > '${getDateSevenDaysAgo()} 00:00:00'
+		GROUP BY fk_machine;
+    `)
 }

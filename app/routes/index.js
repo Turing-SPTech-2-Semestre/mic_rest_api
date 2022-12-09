@@ -26,7 +26,7 @@ router.use('/machine', authorize.authorize, machineRoute);
 
 router.use('/dataMachine', dataMachineRoute);
 
-router.use('/dashHilary', dashHilaryRoute)
+router.use('/dashHilary', authorize.authorize, dashHilaryRoute)
 
 router.use('/company', companyRoute);
 
