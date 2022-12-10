@@ -1,4 +1,5 @@
 const { insert, findLastSevenByCompanyOrderByMachine, findAlertByCompanyId } = require('../repositories/alertMachine.repository');
+const cardPipefyService = require('../services/cardPipefy.service');
 
 exports.validate = async (medidas) => {
     const comp = ["", "ram", "dsk", "cpu"];
@@ -28,6 +29,8 @@ exports.validate = async (medidas) => {
     }
     if (alertas.length > 0)
         await insert(alertas);
+        await cardPipefyService.create(alertas);
+        
 };
 
 exports.findLastSevenByCompanyOrderByMachine = async (machineId) => {
