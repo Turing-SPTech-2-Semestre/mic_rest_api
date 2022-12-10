@@ -3,7 +3,7 @@ const { generateCompanyCode } = require('../helper/companyCode.helper');
 
 exports.countById = (id) => {
     return exec(`
-        SELECT id
+        SELECT count(id) as companies
         FROM mic_company
         WHERE id = ${id};`
     );

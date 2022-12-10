@@ -1,21 +1,23 @@
 const { insert, findLastSevenByCompanyOrderByMachine, findAlertByCompanyId } = require('../repositories/alertMachine.repository');
 const cardPipefyService = require('../services/cardPipefy.service');
 
-exports.validate = async (medidas) => {
+exports.validate = async (medidas, metrics) => {
     const comp = ["", "ram", "dsk", "cpu"];
+    const metr = ["", {"medium":metrics.ramMedium, "max":metrics.ramMax}, {"medium": metrics.diskMin, "max":metrics.disMax}, {"medium":metrics.cpuMedium, "max":metrics.cpuMax}];
     const alertas = [];
     let alert;
     let component;
     let type;
 
-    for (let i = 2; i < medidas.length; i++) {
+    console.log(medidas[1] >= metr[1].medium)
+    for (let i = 1; i < medidas.length; i++) {
         component = comp[i];
         type="";
 
-        if (medidas[i] >= 65 && medidas[i] <= 80)
+        if (medidas[i] >= metr[i].medium && metr[i] < metr[i].max)
             type="Emergencial";
             
-        else if (medidas[i] > 80 && medidas[i] <= 100)
+        else if (medidas[i] <= 100)
             type="Crítico";
 
         alert = {
@@ -27,9 +29,11 @@ exports.validate = async (medidas) => {
         if (type == "Emergencial" || type == "Crítico")
             alertas.push(alert);
     }
-    if (alertas.length > 0)
+
+    if (alertas.length > 0) {
         await insert(alertas);
         await cardPipefyService.create(alertas);
+    }
         
 };
 

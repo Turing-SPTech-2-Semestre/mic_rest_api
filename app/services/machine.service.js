@@ -4,9 +4,10 @@ exports.exists = async (serialNumber) => {
     const machine = await findBySerialNumber(serialNumber);
     
     if (machine.length > 0) {
-        return machine[0]
+        return machine[0].id
     }
     
+    console.log("Oiads")
     return null
 };
 

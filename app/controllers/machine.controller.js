@@ -12,13 +12,6 @@ exports.create = async (req, res) => {
         } = req.body
         if (companyId && serialNumber && ramCapacity && diskCapacity && cpuCapacity && cpuLogicalPorts) {
             const companyExists = await companyService.exists(companyId); 
-           
-            console.log(companyId)
-            console.log(serialNumber);
-            console.log(ramCapacity);
-            console.log(diskCapacity);
-            console.log(cpuCapacity);
-            console.log(cpuLogicalPorts);
 
             if (!companyExists) {
                 return res.status(404).send("Empresa não encontrada")
@@ -27,10 +20,16 @@ exports.create = async (req, res) => {
             const machine = await machineService.exists(serialNumber);
 
             if (machine) {
-                return res.status(403).send(`${machine.id}`);
+                return res.status(403).send(`${machine}`);
             }
 
             await machineService.create(req.body);
+
+            const idMachine = await machineService.exists(serialNumber);
+
+            if(idMachine){
+                await metricMachineService.create(idMachine);
+            }
             // await metricMachineService.create(companyId);
 
             res.status(201).send('Máquina cadastrada com sucesso');

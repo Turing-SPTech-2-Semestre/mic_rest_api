@@ -1,9 +1,15 @@
-const { countByCompanyCode, getIdByCompanyCode, create, findByName } = require('../repositories/company.repository');
+const { countByCompanyCode, countById, getIdByCompanyCode, create, findByName } = require('../repositories/company.repository');
 
 exports.exists = async (id) => {
-    const numberOfCompanies = await countByCompanyCode(id);
+    const numberOfCompanies = await countById(id);
 
-    return numberOfCompanies.length > 0;
+    console.log(numberOfCompanies[0].companies);
+
+    if (numberOfCompanies.length > 0) {
+        return numberOfCompanies[0].companies;
+    }    
+
+    return false; 
 };
 
 exports.getIdByCompanyCode = async (companyCode) => {

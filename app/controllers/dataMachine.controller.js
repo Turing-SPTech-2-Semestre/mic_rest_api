@@ -1,4 +1,4 @@
-const { dataMachineService, machineService, alertMachineService, companyService } = require('../services/index');
+const { dataMachineService, machineService, alertMachineService, companyService, metricMachineService } = require('../services/index');
 
 exports.insert = async (req, res) => {
     try {
@@ -16,7 +16,13 @@ exports.insert = async (req, res) => {
                 return res.status(404).send("Essa máquina ainda não foi cadastrada");
             }
 
-            await alertMachineService.validate([machineId, ramUsage, diskUsage, cpuPercent]);
+            const metrics = await metricMachineService.findByMachineId(machineId);
+
+            if (!metrics) {
+                await metricMachineService.create(machineId);
+            }
+
+            await alertMachineService.validate([machineId, ramUsage, diskUsage, cpuPercent], metrics);
             await dataMachineService.insert(req.body);
             res.status(201).send("Informação inserida com sucesso.");
         }
