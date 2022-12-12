@@ -5,6 +5,7 @@ const postRoute = require('./post.route');
 const userRoute = require('./user.route')
 const machineRoute = require('./machine.route');
 const dataMachineRoute = require('./dataMachine.route');
+const metricMachineRoute = require('./metricMachine.route')
 const companyRoute = require('./company.route');
 const dashHilaryRoute = require('./alert.route');
 
@@ -24,6 +25,8 @@ router.use('/user', userRoute);
 router.use('/machine', authorize.authorize, machineRoute);
 
 router.use('/dataMachine', dataMachineRoute);
+
+router.use('/metricMachine', metricMachineRoute);
 
 router.use('/alerts', authorize.authorize, dashHilaryRoute)
 

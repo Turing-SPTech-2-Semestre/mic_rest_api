@@ -6,3 +6,4 @@ exports.userController = require('./user.constroller');
 exports.machineController = require('./machine.controller');
 exports.dataMachineController = require('./dataMachine.controller');
 exports.alertMachineController = require('./alertMachine.controller');
+exports.metricMachineController = require('./metricMachine.controller');

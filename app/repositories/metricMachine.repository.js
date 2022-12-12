@@ -21,3 +21,8 @@ exports.findByMachineId = (machineId) => {
         WHERE fk_machine = ${machineId};
     `)
 }
+
+
+exports.update = (metric) => {
+    console.log(metric);
+}

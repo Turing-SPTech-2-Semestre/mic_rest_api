@@ -1,4 +1,4 @@
-const { create, findByMachineId } = require('../repositories/metricMachine.repository');
+const { create, findByMachineId, update } = require('../repositories/metricMachine.repository');
 
 exports.create = async (machineId) => {
     return await create(machineId);
@@ -12,4 +12,8 @@ exports.findByMachineId = async (machineId) => {
    }
 
   return false; 
+}
+
+exports.update = async (metric) => {
+    return await update(metric);
 }
