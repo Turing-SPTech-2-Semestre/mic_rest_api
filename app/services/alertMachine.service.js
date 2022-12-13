@@ -1,4 +1,4 @@
-const { insert, findLastSevenByCompanyOrderByMachine, findAlertByCompanyId } = require('../repositories/alertMachine.repository');
+const { insert, findLastSevenByCompanyOrderByMachine, findAlertByCompanyId, findAlertByUserName } = require('../repositories/alertMachine.repository');
 const cardPipefyService = require('../services/cardPipefy.service');
 
 exports.validate = async (medidas, metrics) => {
@@ -49,6 +49,16 @@ exports.findLastSevenByCompanyOrderByMachine = async (machineId) => {
 
 exports.findAlertByCompanyId = async (companyId, lastDays) => {
     const resultado = await findAlertByCompanyId(companyId, lastDays);
+
+    if (resultado.length > 0) {
+        return resultado;
+    }
+
+    return [];
+}
+
+exports.findAlertByUserName = async (companyFk, lastDays) => {
+    const resultado = await findAlertByUserName(companyFk, lastDays);
 
     if (resultado.length > 0) {
         return resultado;

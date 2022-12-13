@@ -39,3 +39,13 @@ exports.findAlertByCompanyId  = (companyId, lastDays) => {
 				AND date_insert > '${getLastDaysAgo(lastDays)} 00:00:00';
     `)
 }
+
+exports.findAlertByUserName  = (companyFk, lastDays) => {
+    return exec(`
+        select nomeUsuario, count(id) as qtdAlerta
+	    from [dbo].[alerta_atividade]
+		    where fk_empresa = ${companyFk} 
+			    and horaAlerta > '${getLastDaysAgo(lastDays)} 00:00:00'
+				    group by nomeUsuario;
+    `)
+}

@@ -9,4 +9,8 @@ router.route('/find-by-company/:companyId')
 router.route('/find-alerts/:companyId/:lastDays')
     .get(controller.alertMachineController.findAlertByCompanyId)
 
+    //r
+    router.route('/count-by-user/:companyFk/:lastDays')
+    .get(controller.alertMachineController.findAlertByUserName)
+
 module.exports = router;

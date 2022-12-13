@@ -8,6 +8,7 @@ const dataMachineRoute = require('./dataMachine.route');
 const metricMachineRoute = require('./metricMachine.route')
 const companyRoute = require('./company.route');
 const dashHilaryRoute = require('./alert.route');
+const dashAtividadeRoute = require('./alert.route');
 
 const controller = require('../controllers');
 const authorize = require('../middleware/authorize/authorize');
@@ -29,6 +30,8 @@ router.use('/dataMachine', dataMachineRoute);
 router.use('/metricMachine', metricMachineRoute);
 
 router.use('/alerts', authorize.authorize, dashHilaryRoute)
+
+router.use('/alerts', authorize.authorize, dashAtividadeRoute)
 
 router.use('/company', companyRoute);
 
